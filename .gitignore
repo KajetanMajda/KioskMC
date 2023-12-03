@@ -1,0 +1,5 @@
+#webstrom
+.idea/
+
+#files from MacOS
+.DS_STORE
