@@ -1,6 +1,5 @@
-'use client';
 import React, { useState, useEffect } from 'react';
-import '../Style/adver.css';
+import './advertisements.css';
 
 export default function Advertisements() {
     const advertisements = [
@@ -10,7 +9,7 @@ export default function Advertisements() {
         },
         {
             title: 'A Symphony of Flavors for Every Palate',
-            content: 'Embark on a gastronomic adventure with our diverse menu that caters to all tastes. From mouthwatering appetizers to delectable main courses and irresistible desserts, our menu is a symphony of flavors that promises to satisfy even the most discerning palate. Whether you crave a sizzling steak, crave exotic seafood, or savor vegetarian delights, our extensive menu offers something for everyone.'
+            content: 'Embark on a gastronomic adventure with our diverse menu that caters to all tastes. From mouthwatering appetizers to delectable main courses and irresistible desserts, our menu is a symphony of flavors that promises to satisfy even the most discerning palate. Whether you crave a sizzling steak, crave exotic seafood, or savor vegetarian delights.'
         },
         {
             title: 'Elegant Ambiance for Unforgettable Moments',
@@ -37,9 +36,11 @@ export default function Advertisements() {
   }, [currentAd]);
 
   return (
-    <div className="section">
-      <h1>{advertisements[currentAd].title}</h1>
-      <p>{advertisements[currentAd].content}</p>
+    <div className="advertisement-container">
+      <div className="section">
+        <h1>{advertisements[currentAd].title}</h1>
+        <p>{advertisements[currentAd].content}</p>
+      </div>
     </div>
   );
 }

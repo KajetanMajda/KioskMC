@@ -1,0 +1,41 @@
+.dining-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 7%;
+    margin-bottom: 30px;
+  }
+  
+  .dining {
+    --color: rgb(172,148,244);
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid var(--color);
+    background-color: black;
+    color: white;
+    font-size: large;
+    font-style: italic;
+    padding: 1% 15%;
+    max-height: 20px;
+    border-radius: 5px;
+    position: relative;
+    isolation: isolate;
+    text-decoration: none;
+  }
+  
+  .dining::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    inset: 0;
+    scale: 0 1;
+    transform-origin: right;
+    transition: scale 450ms;
+  }
+  .dining:hover::after,
+  .dining:focus-visible::after
+  {
+    transform-origin: left;
+    scale: 1 1;
+  }
