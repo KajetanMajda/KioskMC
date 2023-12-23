@@ -1,12 +1,11 @@
-"use client"
+// pages/index.tsx
 import React from 'react';
-import '../Style/page.css';
-import Advertisements from '../Components/Advertisements';
-import { Link } from 'react-router-dom';
+import '../app/Style/page.css';
+import Advertisements from '../app/Components/Advertisements';
 
 export default function StartPage() {
-  return (
-    <div className="main-container">
+    return (
+        <div className="main-container">
       <nav className="navbar-container">
         <p className="firstP">Kajetan's</p>
         <img src="/images/logo.png" alt="Logo"  className="image"/>
@@ -18,9 +17,9 @@ export default function StartPage() {
       </div>
 
       <div className="button-container">
-        <Link to="/home" className="dining">Dine In</Link>
-        <Link to="/home" className="dining">Take Out</Link>
+        <button className="dining">Dine In</button>
+        <button className="dining">Take Out</button>
       </div>
     </div>
-  );
-}
+    );
+    }
