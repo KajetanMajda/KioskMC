@@ -6,18 +6,55 @@
     background-color: rgb(172,148,244);
   }
   
-  .logo .image {
-    height: 70px;
-    padding: 20px;
+  .logo-container .image {
+    display: block;
+    height: 100px;
+    padding: 15px;
+  }
+
+  .image:hover {
+    cursor: pointer;
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes shake {
+    0% { rotate: 0deg;}
+    30% { rotate: 25deg;}
+    60% { rotate: -25deg;}
+    100% { rotate: 0deg;}
   }
   
   .search-bar .search-input {
-    width: 600px; 
+    width: 600px;
+    margin-left: 60px; 
     height: 30px;
     padding: 5px; 
     font-size: large;
+    border: 2px solid black;
   }
 
-  .icon p {
-    margin: 0;
+  ::placeholder {
+    color: rgb(172,148,244);
+    opacity: 1;
   }
+
+    input:focus::placeholder {
+    opacity: 0;
+  }
+
+  .icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cart-icon, .admin-icon {
+    color: white;
+    height: 50px;
+    padding: 20px;
+  }
+
+    .cart-icon:hover, .admin-icon:hover {
+        color: black;
+    }
