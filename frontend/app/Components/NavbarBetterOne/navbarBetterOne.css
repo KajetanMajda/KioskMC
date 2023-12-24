@@ -1,0 +1,23 @@
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: rgb(172,148,244);
+  }
+  
+  .logo .image {
+    height: 70px;
+    padding: 20px;
+  }
+  
+  .search-bar .search-input {
+    width: 600px; 
+    height: 30px;
+    padding: 5px; 
+    font-size: large;
+  }
+
+  .icon p {
+    margin: 0;
+  }
