@@ -1,0 +1,49 @@
+.product-container {
+  --color: rgb(172, 148, 244);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--color);
+  border-radius: 4px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  height: 500px;
+}
+
+.product-name {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: auto; /* Ustawiamy auto, aby nazwa była zawsze na górze */
+}
+
+.product-image {
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center; /* Ustawiamy, aby obraz był wyśrodkowany */
+  cursor: pointer;
+}
+
+.product-price {
+  font-size: 20px;
+  margin-top: auto; /* Ustawiamy auto, aby cena była zawsze na dole */
+  margin-bottom: 5px;
+  text-decoration: underline;
+  --color: rgb(172, 148, 244);
+  text-decoration-color: var(--color);
+}
+
+.product-price::after {
+  content: " €";
+}
+
+.product-cuisine {
+  font-size: 20px;
+  color: black;
+  text-decoration: underline;
+  --color: rgb(172, 148, 244);
+  text-decoration-color: var(--color);
+}

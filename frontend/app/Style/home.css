@@ -1,0 +1,30 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 20px;
+    background-color: white;
+  }
+  
+.center-container, .botom-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+  
+.center-container {
+    margin-top: 100px;
+    flex-grow: 1;
+}
+
+.up-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Add other styles as needed */
+  }

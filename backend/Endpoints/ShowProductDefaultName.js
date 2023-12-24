@@ -5,9 +5,9 @@ const cors = require('cors');
 
 router.use(cors());
 
-router.get('/products', async (req, res) => {
+router.get('/productsName', async (req, res) => {
     try {
-        const documents = await KioskProductsModel.find({}, 'name price image cuisine -_id');
+        const documents = await KioskProductsModel.find({}, 'name -_id');
         res.json(documents);
     } catch (error) {
         console.error('Error retrieving data from collection:', error);
