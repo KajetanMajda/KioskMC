@@ -8,13 +8,13 @@
   padding: 20px;
   margin: 10px;
   width: 300px;
-  height: 500px;
+  height: 550px;
 }
 
 .product-name {
   font-size: 25px;
   font-weight: bold;
-  margin-bottom: auto; /* Ustawiamy auto, aby nazwa była zawsze na górze */
+  margin-bottom: auto;
 }
 
 .product-image {
@@ -23,13 +23,12 @@
   height: auto;
   margin-bottom: 10px;
   align-items: center;
-  justify-content: center; /* Ustawiamy, aby obraz był wyśrodkowany */
-  cursor: pointer;
+  justify-content: center;
 }
 
 .product-price {
   font-size: 20px;
-  margin-top: auto; /* Ustawiamy auto, aby cena była zawsze na dole */
+  margin-top: auto;
   margin-bottom: 5px;
   text-decoration: underline;
   --color: rgb(172, 148, 244);
@@ -46,4 +45,28 @@
   text-decoration: underline;
   --color: rgb(172, 148, 244);
   text-decoration-color: var(--color);
+}
+
+
+
+
+.product-button {
+  --color: rgb(172,148,244);
+  display: inline-block;
+  cursor: pointer;
+  border: 2px solid var(--color);
+  background-color: black;
+  color: white;
+  padding: 1% 15%;
+  max-height: 30px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.product-button:hover {
+  --color: rgb(172,148,244);
+  color: black;
+  background-color: var(--color);
+  border: 2px solid black;
+  transform: scale(1.1);
 }
