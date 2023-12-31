@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import './advertisements.css';
 
 export default function Advertisements() {
@@ -25,15 +25,17 @@ export default function Advertisements() {
         }
     ];
 
-  const [currentAd, setCurrentAd] = useState(0);
+    const [currentAd, setCurrentAd] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentAd((currentAd + 1) % advertisements.length);
-    }, 30000);
+    useLayoutEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentAd((currentAd + 1) % advertisements.length);
+        }, 30000);
 
-    return () => clearInterval(timer);
-  }, [currentAd]);
+        return () => {
+            clearInterval(timer);
+        };
+    }, [currentAd, advertisements.length]);
 
   return (
     <div className="advertisement-container">

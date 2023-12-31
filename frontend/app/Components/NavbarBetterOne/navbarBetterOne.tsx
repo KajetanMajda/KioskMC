@@ -53,7 +53,7 @@ export default function navbarBetterOne() {
   return (
     <div className='nav-container'>
       <div className='logo-container'>
-        <Link href="/login">
+        <Link href="/">
             <img src="/images/logo2.png" alt="Logo" className="image"/>
         </Link>
       </div>

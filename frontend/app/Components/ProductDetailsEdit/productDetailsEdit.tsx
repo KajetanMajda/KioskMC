@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import Link from 'next/link';
 
 interface Ingredient {
     name: string;
@@ -17,68 +18,72 @@ interface Product {
     ingredients: Ingredient[];
 }
 
-interface State {
-    product: Product;
-}
+type Action = 
+    | { type: 'SET_PRODUCT', payload: Product }
+    | { type: 'INCREASE_PRODUCT_QUANTITY' }
+    | { type: 'DECREASE_PRODUCT_QUANTITY' }
+    | { type: 'INCREASE_QUANTITY', payload: number }
+    | { type: 'DECREASE_QUANTITY', payload: number };
 
-interface Action {
-    type: string;
-    payload?: any;
-}
-
-const initialState: State = {
-    product: {
-        name: '',
-        price: 0,
-        quantity: 0,
-        minQuantity: 0,
-        maxQuantity: 0,
-        ingredients: [],
-    },
-};
-
-function reducer(state: State, action: Action): State {
+function productReducer(product: Product, action: Action): Product {
+    let ingredients;
     switch (action.type) {
         case 'SET_PRODUCT':
-            return { ...state, product: action.payload };
+            return action.payload;
         case 'INCREASE_PRODUCT_QUANTITY':
-            if (state.product.quantity < state.product.maxQuantity) {
-                return { ...state, product: { ...state.product, quantity: state.product.quantity + 1 } };
+            if (product.quantity < product.maxQuantity) {
+                return { ...product, quantity: product.quantity + 1 };
             }
-            return state;
+            return product;
         case 'DECREASE_PRODUCT_QUANTITY':
-            if (state.product.quantity > state.product.minQuantity) {
-                return { ...state, product: { ...state.product, quantity: state.product.quantity - 1 } };
+            if (product.quantity > product.minQuantity) {
+                return { ...product, quantity: product.quantity - 1 };
             }
-            return state;
-        case 'INCREASE_QUANTITY':
-            const newIngredients = [...state.product.ingredients];
-            if (
-                newIngredients[action.payload].isEditable &&
-                newIngredients[action.payload].quantity < newIngredients[action.payload].maxQuantity
-            ) {
-                newIngredients[action.payload].quantity++;
-                return { ...state, product: { ...state.product, ingredients: newIngredients } };
-            }
-            return state;
-        case 'DECREASE_QUANTITY':
-            const newIngredients2 = [...state.product.ingredients];
-            if (
-                newIngredients2[action.payload].isEditable &&
-                newIngredients2[action.payload].quantity > newIngredients2[action.payload].minQuantity
-            ) {
-                newIngredients2[action.payload].quantity--;
-                return { ...state, product: { ...state.product, ingredients: newIngredients2 } };
-            }
-            return state;
+            return product;
+            case 'INCREASE_QUANTITY':
+                ingredients = [...product.ingredients];
+                if (ingredients[action.payload].quantity < ingredients[action.payload].maxQuantity) {
+                    ingredients[action.payload].quantity += 1;
+                }
+                return { ...product, ingredients };
+            case 'DECREASE_QUANTITY':
+                ingredients = [...product.ingredients];
+                if (ingredients[action.payload].quantity > ingredients[action.payload].minQuantity) {
+                    ingredients[action.payload].quantity -= 1;
+                }
+                return { ...product, ingredients };
+            default:
+                return product;
+        }
+    }
+type CartAction = 
+| { type: 'ADD_TO_CART', payload: Product }
+| { type: 'REMOVE_FROM_CART', payload: number }
+| { type: 'CLEAR_CART' };
+
+function cartReducer(cart: Product[], action: CartAction): Product[] {
+    switch (action.type) {
+        case 'ADD_TO_CART':
+            const newCart = [...cart, action.payload];
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            return newCart;
+        case 'REMOVE_FROM_CART':
+            const updatedCart = [...cart];
+            updatedCart.splice(action.payload, 1);
+            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            return updatedCart;
+        case 'CLEAR_CART':
+            localStorage.removeItem('cart');
+            return [];
         default:
-            return state;
+            return cart;
     }
 }
 
 export default function ProductDetailsEdit({ productProp }: { productProp: Product }) {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const { product } = state;
+    const [product, dispatch] = useReducer(productReducer, {...productProp, quantity:1});
+    const initialCart = localStorage.getItem('cart');
+    const [cart, dispatchCart] = useReducer(cartReducer, initialCart ? JSON.parse(initialCart) : []);
 
     React.useEffect(() => {
         dispatch({ type: 'SET_PRODUCT', payload: productProp });
@@ -104,6 +109,10 @@ export default function ProductDetailsEdit({ productProp }: { productProp: Produ
         return <div>Loading...</div>;
     }
 
+    const addToCart = () => {
+        dispatchCart({ type: 'ADD_TO_CART', payload: product });
+    };
+
     return (
         <div>
             <h1>{product.name}</h1>
@@ -111,8 +120,10 @@ export default function ProductDetailsEdit({ productProp }: { productProp: Produ
             <p>Quantity: {product.quantity}</p>
             <button onClick={decreaseProductQuantity}>-</button>
             <button onClick={increaseProductQuantity}>+</button>
-            <button>Buy Now</button>
-            <button>Continue shopping</button>
+            <Link href='/home'>
+                <button onClick={addToCart}>Add to basket</button>
+                <button>Cancel</button>
+            </Link>
 
             {product.ingredients.map((ingredient, index) => (
                 <div key={index}>
