@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
 import './navbarBetterOne.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 export default function navbarBetterOne() {
   const [placeholder, setPlaceholder] = useState('');
   const [isPause, setIsPause] = useState(false);
   const [products, setProducts] = useState<string[]>([]);
-  //const products = ['ClassicBurger', 'DeluxeBurger'];
   const productIndex = useRef(0);
   const letterIndex = useRef(0);
   const deleting = useRef(false);
@@ -49,13 +52,22 @@ export default function navbarBetterOne() {
 
   return (
     <div className='nav-container'>
-      <div className='logo'>
-        <img src="/images/logo.png" alt="Logo" className="image"/>
+      <div className='logo-container'>
+        <Link href="/">
+            <img src="/images/logo2.png" alt="Logo" className="image"/>
+        </Link>
       </div>
       <div className='search-bar'>
         <input className='search-input' type='text' placeholder={placeholder} />
       </div>
-      <div className='icon'>Icon</div>
+      <div className='icon-container'>
+            <Link href="/login" className="icon-button">
+                <FontAwesomeIcon icon={faUser} className='admin-icon'/>
+            </Link>
+            <Link href="/basket" className="icon-button">
+                <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+            </Link>
+      </div>
     </div>
   )
 }

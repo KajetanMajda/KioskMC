@@ -4,6 +4,7 @@ const showProducts = require('./Endpoints/ShowProducts');
 const showProductsName = require('./Endpoints/ShowProductsName');
 const showProductsNameIngredients = require('./Endpoints/ShowProductsNameIngredients');
 const showProductDefaultName = require('./Endpoints/ShowProductDefaultName');
+const showProductsNameInfo = require('./Endpoints/ShowProductsNameInfo');
 
 const app = express();
 const port = 3030;
@@ -14,6 +15,7 @@ app.use(showProducts);
 app.use(showProductsName);
 app.use(showProductsNameIngredients);
 app.use(showProductDefaultName);
+app.use(showProductsNameInfo);
 
 
 app.listen(port, () => {
