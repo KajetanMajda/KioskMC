@@ -101,14 +101,47 @@ export default function Basket() {
                     `Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price}`
                 ).join('\n')}
                 Total: {cart.reduce((sum, product) => sum + product.price * product.quantity, 0)}
-                <button onClick={() => {
+
+                {/* <button onClick={() => {
                     const orderNumber = generateOrderNumber();
                     alert(`Payment successful!\nYour Order Number: ${orderNumber}`);
                     setCart([]);
                     localStorage.removeItem('cart');
                     setIsModalOpen(false);
                     router.push('/');
-                }}>Zapłać</button>
+                }}>Zapłać</button> */}
+
+                <button onClick={async () => {
+                    const orderNumber = generateOrderNumber();
+                    const summary = cart.map(product =>
+                        `Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price}`
+                    ).join('\n');
+                    const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+                    const currentDate = new Date().toISOString().slice(0, 10);
+
+                    const response = await fetch('http://localhost:3030/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            orderNumber,
+                            total,
+                            date: currentDate,
+                            items: cart, 
+                        }),
+                    });
+
+                    if (response.ok) {
+                        alert(`Payment successful!\nYour Order Number: ${orderNumber}`);
+                        setCart([]);
+                        localStorage.removeItem('cart');
+                        setIsModalOpen(false);
+                        router.push('/');
+                    } else {
+                        alert('Something went wrong!');
+                    }
+                }}>Pay here</button>
             </Modal>
 
             <p>Total items: {totalItems}</p>

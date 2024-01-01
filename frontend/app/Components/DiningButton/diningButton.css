@@ -16,7 +16,8 @@
     font-size: large;
     font-style: italic;
     padding: 1% 15%;
-    max-height: 20px;
+    /* max-height: 40px; */
+    height: auto;
     border-radius: 5px;
     position: relative;
     isolation: isolate;
