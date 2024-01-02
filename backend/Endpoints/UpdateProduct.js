@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ProductsModel = require('../Schemas/ProductSchema');
+const ProductsModel = require('../Schemas/ProductsSchema');
 const cors = require('cors');
 
 router.use(cors());
@@ -10,7 +10,7 @@ router.put('/products/update/:id', async (req, res) => {
       const { id } = req.params;
       const { newData } = req.body;
   
-      const updatedProduct = await ProductsModel.findByIdAndUpdate(id, newData, { new: true });
+      const updatedProduct = await ProductsModel.findOneAndUpdate({ id: id }, newData, { new: true });
   
       if (!updatedProduct) {
         return res.status(404).json({ message: 'Product not found' });

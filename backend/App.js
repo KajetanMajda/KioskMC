@@ -8,6 +8,7 @@ const showProductDefaultName = require('./Endpoints/ShowProductDefaultName');
 const showProductsNameInfo = require('./Endpoints/ShowProductsNameInfo');
 const enterOrderInfo = require('./Endpoints/EnterOrderInfo');
 const showOrders = require('./Endpoints/ShowOrders');
+const updateProduct = require('./Endpoints/UpdateProduct');
 
 const app = express();
 const port = 3030;
@@ -22,6 +23,7 @@ app.use(showProductsNameInfo);
 app.use(enterOrderInfo);
 app.use(showOrders);
 app.use(showProductsAll);
+app.use(updateProduct);
 
 
 app.listen(port, () => {
