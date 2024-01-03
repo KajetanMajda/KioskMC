@@ -1,0 +1,112 @@
+.main-container-basket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  background-color: white;
+}
+
+.navbar-container-basket {
+  position: flex-end;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(172, 148, 244);
+  color: white;
+}
+
+.navbar-container-basket h1 {
+  margin: 0;
+}
+
+.navbar-container-basket button {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+
+.navar-button-basket:hover,
+.navbar-container-basket button:hover {
+  transform: scale(1.1);
+}
+
+.navar-paragraph-basket {
+  margin-right: 10px;
+}
+
+
+.basket-data-container {
+  width: 30%;
+  padding: 20px;
+}
+
+.ingredien-container-basket {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.basket-name-h2 {
+  color: #333;
+}
+
+.basket-button,
+.basket-button-ingredients,
+.pay-button {
+  background-color: rgb(172, 148, 244);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.basket-button:hover,
+.basket-button-ingredients:hover,
+.pay-button:hover {
+  background-color: black;
+}
+
+.footer-container-basket {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.modal-main {
+  background: transparent;
+  border: none;
+  margin-top: 90px;
+}
+
+.modal-content {
+  text-align: center;
+  max-width: 400px;
+  margin-top: 300px;
+  margin: auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.paragraph-modal {
+  margin: 5px 0;
+}
+
+.paragraph-modal-total {
+  font-weight: bold;
+}

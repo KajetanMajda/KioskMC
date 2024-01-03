@@ -1,31 +1,27 @@
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100vh;
-    padding: 20px;
-    background-color: white;
-  }
-  
-.center-container, .botom-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  background-color: white;
 }
-  
+
 .center-container {
-    margin-top: 100px;
-    margin-right: 50px;
-    flex-grow: 1;
+  margin-left: -100px;
+  flex-grow: 1;
 }
 
 .up-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+  position: flex-end;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
 
-  }
+.botom-container {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}

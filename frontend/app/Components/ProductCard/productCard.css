@@ -47,11 +47,8 @@
   text-decoration-color: var(--color);
 }
 
-
-
-
 .product-button {
-  --color: rgb(172,148,244);
+  --color: rgb(172, 148, 244);
   display: inline-block;
   cursor: pointer;
   border: 2px solid var(--color);
@@ -64,7 +61,7 @@
 }
 
 .product-button:hover {
-  --color: rgb(172,148,244);
+  --color: rgb(172, 148, 244);
   color: black;
   background-color: var(--color);
   border: 2px solid black;

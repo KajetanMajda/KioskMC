@@ -1,0 +1,20 @@
+.Form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 0 auto;
+    padding: 120px;
+}
+
+.Form .field {
+    --color: rgb(172, 148, 244);
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid var(--color);
+    border-radius: 4px;
+}
+
+.Form .errorMessage {
+    color: red;
+    margin-bottom: 10px;
+}

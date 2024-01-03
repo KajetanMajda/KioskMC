@@ -1,5 +1,7 @@
 import React, { useReducer } from 'react';
+import './productDetailsEdit.css';
 import Link from 'next/link';
+import Footer from "../Footer/footer";
 
 interface Ingredient {
     name: string;
@@ -18,7 +20,7 @@ interface Product {
     ingredients: Ingredient[];
 }
 
-type Action = 
+type Action =
     | { type: 'SET_PRODUCT', payload: Product }
     | { type: 'INCREASE_PRODUCT_QUANTITY' }
     | { type: 'DECREASE_PRODUCT_QUANTITY' }
@@ -40,26 +42,26 @@ function productReducer(product: Product, action: Action): Product {
                 return { ...product, quantity: product.quantity - 1 };
             }
             return product;
-            case 'INCREASE_QUANTITY':
-                ingredients = [...product.ingredients];
-                if (ingredients[action.payload].quantity < ingredients[action.payload].maxQuantity) {
-                    ingredients[action.payload].quantity += 1;
-                }
-                return { ...product, ingredients };
-            case 'DECREASE_QUANTITY':
-                ingredients = [...product.ingredients];
-                if (ingredients[action.payload].quantity > ingredients[action.payload].minQuantity) {
-                    ingredients[action.payload].quantity -= 1;
-                }
-                return { ...product, ingredients };
-            default:
-                return product;
-        }
+        case 'INCREASE_QUANTITY':
+            ingredients = [...product.ingredients];
+            if (ingredients[action.payload].quantity < ingredients[action.payload].maxQuantity) {
+                ingredients[action.payload].quantity += 1;
+            }
+            return { ...product, ingredients };
+        case 'DECREASE_QUANTITY':
+            ingredients = [...product.ingredients];
+            if (ingredients[action.payload].quantity > ingredients[action.payload].minQuantity) {
+                ingredients[action.payload].quantity -= 1;
+            }
+            return { ...product, ingredients };
+        default:
+            return product;
     }
-type CartAction = 
-| { type: 'ADD_TO_CART', payload: Product }
-| { type: 'REMOVE_FROM_CART', payload: number }
-| { type: 'CLEAR_CART' };
+}
+type CartAction =
+    | { type: 'ADD_TO_CART', payload: Product }
+    | { type: 'REMOVE_FROM_CART', payload: number }
+    | { type: 'CLEAR_CART' };
 
 function cartReducer(cart: Product[], action: CartAction): Product[] {
     switch (action.type) {
@@ -81,7 +83,7 @@ function cartReducer(cart: Product[], action: CartAction): Product[] {
 }
 
 export default function ProductDetailsEdit({ productProp }: { productProp: Product }) {
-    const [product, dispatch] = useReducer(productReducer, {...productProp, quantity:1});
+    const [product, dispatch] = useReducer(productReducer, { ...productProp, quantity: 1 });
     const initialCart = localStorage.getItem('cart');
     const [cart, dispatchCart] = useReducer(cartReducer, initialCart ? JSON.parse(initialCart) : []);
 
@@ -114,29 +116,46 @@ export default function ProductDetailsEdit({ productProp }: { productProp: Produ
     };
 
     return (
-        <div>
-            <h1>{product.name}</h1>
-            <p>Price: {product.price}</p>
-            <p>Quantity: {product.quantity}</p>
-            <button onClick={decreaseProductQuantity}>-</button>
-            <button onClick={increaseProductQuantity}>+</button>
-            <Link href='/home'>
-                <button onClick={addToCart}>Add to basket</button>
-                <button>Cancel</button>
-            </Link>
+        <div className="main-container-deatails">
+            <div className="nav-container-details-div">
+                <nav className="navbar-container-deatails">
+                    <div className="left-container-deatails">
+                        <button className="button-qunatity-deatails" onClick={decreaseProductQuantity}>-</button>
+                        <button className="button-qunatity-deatails" onClick={increaseProductQuantity}>+</button>
+                        <p className="product-qunatity-deatails">Quantity: {product.quantity}</p>
+                    </div>
+                    <div className="center-container-deatails">
+                        <h2 className="product-name-and-price-deatails">{product.name} Price:{product.price}€</h2>
+                    </div>
+                    <div className="right-container-deatails">
+                        <Link href='/home'>
+                            <button className="navbar-button-deatails" onClick={addToCart}>Add to basket</button>
+                            <button className="navbar-button-deatails">Back</button>
+                        </Link>
+                    </div>
+                </nav>
+            </div>
 
-            {product.ingredients.map((ingredient, index) => (
-                <div key={index}>
-                    <p>Name: {ingredient.name}</p>
-                    <p>Quantity: {ingredient.quantity}</p>
-                    {ingredient.isEditable && (
-                        <>
-                            <button onClick={() => decreaseQuantity(index)}>-</button>
-                            <button onClick={() => increaseQuantity(index)}>+</button>
-                        </>
-                    )}
-                </div>
-            ))}
+
+            <div className="ingredients-deatails">
+                {product.ingredients.map((ingredient, index) => (
+                    <div key={index} className="ingredient-item-deatails">
+                        <p className="ingredient-info-deatails">Name: {ingredient.name}</p>
+                        <p className="ingredient-info-deatails">Quantity: {ingredient.quantity}</p>
+                        {ingredient.isEditable && (
+                            <>
+                                <button className="ingredient-button-deatails" onClick={() => increaseQuantity(index)}>+</button>
+                                <button className="ingredient-button-deatails" onClick={() => decreaseQuantity(index)}>-</button>
+                            </>
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div className="footer-container-detailProduct">
+                <Footer />
+            </div>
         </div>
     );
+
+
 }

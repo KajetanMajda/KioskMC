@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { useRouter } from 'next/router';
+import '../app/Style/basket.css';
+import Footer from '../app/Components/Footer/footer';
 
 interface Product {
     name: string;
@@ -85,93 +87,100 @@ export default function Basket() {
     }
 
     return (
-        <div>
-            <h1>Your Cart</h1>
-            <Link href="/home">
-                <button>BACK</button>
-            </Link>
-            <button onClick={() => {
-                setCart([]);
-                localStorage.removeItem('cart');
-            }}>Clear Cart</button>
-            <button onClick={() => setIsModalOpen(true)}>Summary</button>
 
-            <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-                {cart.map(product =>
-                    `Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price}`
-                ).join('\n')}
-                Total: {cart.reduce((sum, product) => sum + product.price * product.quantity, 0)}
+        <>
+            <style>
+                {`
+              body {
+                margin: 0;
+              }
+            `}
+            </style>
 
-                {/* <button onClick={() => {
-                    const orderNumber = generateOrderNumber();
-                    alert(`Payment successful!\nYour Order Number: ${orderNumber}`);
-                    setCart([]);
-                    localStorage.removeItem('cart');
-                    setIsModalOpen(false);
-                    router.push('/');
-                }}>Zapłać</button> */}
+            <div className='main-container-basket'>
+                <div className="navbar-container-basket">
+                    <h1 className='navabar-h1-basket'>Your Cart</h1>
+                    <Link href="/home"><button>BACK</button></Link>
+                    <button className='navar-button-basket' onClick={() => { setCart([]); localStorage.removeItem('cart'); }}>Clear Cart</button>
+                    <button className='navar-button-basket' onClick={() => setIsModalOpen(true)}>Summary</button>
+                    <p className='navar-paragraph-basket'>Total items: {totalItems}</p>
+                    <p className='navar-paragraph-basket'>Total price: {totalPrice} €</p>
+                </div>
 
-                <button onClick={async () => {
-                    const orderNumber = generateOrderNumber();
-                    const summary = cart.map(product =>
-                        `Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price}`
-                    ).join('\n');
-                    const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
-                    const currentDate = new Date().toISOString().slice(0, 10);
+                <Modal className="modal-main" isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+                    <div className="modal-content">
+                        {cart.map((product, index) => (
+                            <p className='paragraph-modal' key={index}>
+                                {`Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price} €`}
+                            </p>
+                        ))}
+                        <p className='paragraph-modal-total'>Total: {cart.reduce((sum, product) => sum + product.price * product.quantity, 0)} €</p>
 
-                    const response = await fetch('http://localhost:3030/orders', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            orderNumber,
-                            total,
-                            date: currentDate,
-                            items: cart, 
-                        }),
-                    });
+                        <button className="pay-button" onClick={async () => {
+                            const orderNumber = generateOrderNumber();
+                            const summary = cart.map(product =>
+                                `Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price} €`
+                            ).join('\n');
+                            const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+                            const currentDate = new Date().toISOString().slice(0, 10);
 
-                    if (response.ok) {
-                        alert(`Payment successful!\nYour Order Number: ${orderNumber}`);
-                        setCart([]);
-                        localStorage.removeItem('cart');
-                        setIsModalOpen(false);
-                        router.push('/');
-                    } else {
-                        alert('Something went wrong!');
-                    }
-                }}>Pay here</button>
-            </Modal>
+                            const response = await fetch('http://localhost:3030/orders', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    orderNumber,
+                                    total,
+                                    date: currentDate,
+                                    items: cart,
+                                }),
+                            });
 
-            <p>Total items: {totalItems}</p>
-            <p>Total price: {totalPrice}</p>
+                            if (response.ok) {
+                                alert(`Payment successful!\nYour Order Number: ${orderNumber}`);
+                                setCart([]);
+                                localStorage.removeItem('cart');
+                                setIsModalOpen(false);
+                                router.push('/');
+                            } else {
+                                alert('Something went wrong!');
+                            }
+                        }}>Pay here</button>
+                    </div>
+                </Modal>
 
-            {cart.map((product, productIndex) => (
-                <div key={productIndex}>
-                    <h2>{product.name}</h2>
-                    <button onClick={() => removeFromCart(productIndex)}>Remove</button>
-                    {!isEditing ? (
-                        <button onClick={() => setIsEditing(true)}>Edit</button>
-                    ) : (
-                        <button onClick={() => setIsEditing(false)}>Save</button>
-                    )}
-                    <p>Price: {product.price}</p>
-                    <p>Quantity: {product.quantity}</p>
-                    {product.ingredients && product.ingredients.map((ingredient, ingredientIndex) => (
-                        <div key={ingredientIndex}>
-                            <p>Name: {ingredient.name}</p>
-                            <p>Quantity: {ingredient.quantity}</p>
-                            {isEditing && ingredient.isEditable && (
-                                <>
-                                    <button onClick={() => decreaseQuantity(productIndex, ingredientIndex)}>-</button>
-                                    <button onClick={() => increaseQuantity(productIndex, ingredientIndex)}>+</button>
-                                </>
+                <div className="basket-data-container">
+                    {cart.map((product, productIndex) => (
+                        <div className='ingredien-container-basket' key={productIndex}>
+                            <h2 className='basket-name-h2'>{product.name}</h2>
+                            <button className='basket-button' onClick={() => removeFromCart(productIndex)}>Remove</button>
+                            {!isEditing ? (
+                                <button className='basket-button' onClick={() => setIsEditing(true)}>Edit</button>
+                            ) : (
+                                <button className='basket-button' onClick={() => setIsEditing(false)}>Save</button>
                             )}
+                            <p className='basket-price-paragraph'>Price: {product.price} €</p>
+                            <p className='basket-quantity-paragraph'>Quantity: {product.quantity}</p>
+                            {product.ingredients && product.ingredients.map((ingredient, ingredientIndex) => (
+                                <div className='basket-container-ingredients' key={ingredientIndex}>
+                                    <p className='basket-name-paragraph-ingredients'>Name: {ingredient.name}</p>
+                                    <p className='basket-quantity-paragraph-ingredients'>Quantity: {ingredient.quantity}</p>
+                                    {isEditing && ingredient.isEditable && (
+                                        <>
+                                            <button className='basket-button-ingredients' onClick={() => decreaseQuantity(productIndex, ingredientIndex)}>-</button>
+                                            <button className='basket-button-ingredients' onClick={() => increaseQuantity(productIndex, ingredientIndex)}>+</button>
+                                        </>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     ))}
                 </div>
-            ))}
-        </div>
+                <div className="footer-container-basket">
+                    <Footer />
+                </div>
+            </div>
+        </>
     );
 }

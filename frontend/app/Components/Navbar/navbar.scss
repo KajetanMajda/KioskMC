@@ -1,0 +1,78 @@
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.image {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+
+  &:hover {
+    cursor: pointer;
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes shake {
+  0% {
+    rotate: 0deg;
+  }
+
+  30% {
+    rotate: 25deg;
+  }
+
+  60% {
+    rotate: -25deg;
+  }
+
+  100% {
+    rotate: 0deg;
+  }
+}
+
+$hover-color: rgb(172, 148, 244);
+
+.firstP,
+.secondP {
+  flex: 1;
+  text-align: center;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+
+  @if $hover-color {
+    &:hover {
+      transform: scale(1.5);
+      transition: transform 1s;
+      color: $hover-color;
+    }
+  }
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  .tooltiptext {
+    width: 630px;
+    top: -170px;
+    left: 50%;
+    margin-left: -315px;
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+  }
+
+  &:hover .tooltiptext {
+    visibility: visible;
+  }
+}

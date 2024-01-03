@@ -10,6 +10,7 @@ interface Ingredient {
 }
 
 interface Product {
+  id: number;
   name: string;
   price: number;
   quantity: number;
@@ -24,7 +25,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<Product[]>('http://localhost:3030/productsAll'); 
+        const response = await axios.get<Product[]>('http://localhost:3030/productsAll');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -58,16 +59,19 @@ const ProductList = () => {
   };
 
   const handleSendClick = async (productName: string) => {
-    try {
+    const confirmed = window.confirm('Are you sure you want to update it?');
+    if (confirmed) {
+      try {
         const productToUpdate = products.find((product) => product.name === productName);
         if (productToUpdate) {
-            const response = await axios.put(`http://localhost:3030/products/update/${productName}`, { newData: productToUpdate });
-            console.log('Data sent successfully:', response.data);
+          const response = await axios.put(`http://localhost:3030/products/update/${productToUpdate.id}`, { newData: productToUpdate });
+          console.log('Data sent successfully:', response.data);
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error sending data:', error);
+      }
     }
-};
+  };
 
   return (
     <div>
@@ -76,11 +80,7 @@ const ProductList = () => {
         {products.map((product) => (
           <li key={product.name}>
             <h3>
-              <input
-                type="text"
-                value={product.name}
-                onChange={(e) => handleInputChange(product.name, 0, 'name', e.target.value)}
-              />
+              {product.name}
               <button onClick={() => handleSendClick(product.name)}>Send</button>
             </h3>
             <p>
@@ -88,33 +88,27 @@ const ProductList = () => {
               <input
                 type="number"
                 value={product.price}
+                min={10}
+                max={100}
                 onChange={(e) => handleInputChange(product.name, 0, 'price', e.target.value)}
-              />
+              /> €
             </p>
-            {/* <p>
-              Quantity:{' '}
-              <input
-                type="number"
-                value={product.quantity}
-                onChange={(e) => handleInputChange(product.name, 0, 'quantity', e.target.value)}
-              />
-            </p> */}
             <p>Ingredients:</p>
             <ul>
               {product.ingredients.map((ingredient, index) => (
                 <li key={index}>
-                  <input
-                    type="text"
-                    value={ingredient.name}
-                    onChange={(e) => handleInputChange(product.name, index, 'name', e.target.value)}
-                  />{' ->'}
-                  {' '}
-                  <input
-                    type="number"
-                    value={ingredient.quantity}
-                    onChange={(e) => handleInputChange(product.name, index, 'quantity', e.target.value)}
-                  />{' '}
-                  units
+                  <span>{ingredient.name} {'->'} </span>
+                  {ingredient.isEditable ? (
+                    <input
+                      type="number"
+                      value={ingredient.quantity}
+                      min={0}
+                      max={ingredient.maxQuantity}
+                      onChange={(e) => handleInputChange(product.name, index, 'quantity', e.target.value)}
+                    />
+                  ) : (
+                    <span>{ingredient.quantity} units</span>
+                  )}
                 </li>
               ))}
             </ul>
