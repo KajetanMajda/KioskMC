@@ -15,9 +15,9 @@ export default function navbarBetterOne() {
 
   useEffect(() => {
     fetch('http://localhost:3030/productsName')
-  .then(response => response.json())
-  .then(data => setProducts(data.map((item: { name: string }) => item.name)))
-  .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => setProducts(data.map((item: { name: string }) => item.name)))
+      .catch(error => console.error(error));
   }, []);
 
   useEffect(() => {
@@ -54,19 +54,16 @@ export default function navbarBetterOne() {
     <div className='nav-container'>
       <div className='logo-container'>
         <Link href="/">
-            <img src="/images/logo2.png" alt="Logo" className="image"/>
+          <img src="/images/logo2.png" alt="Logo" className="image" />
         </Link>
       </div>
       <div className='search-bar'>
         <input className='search-input' type='text' placeholder={placeholder} />
       </div>
-      <div className='icon-container'>
-            <Link href="/login" className="icon-button">
-                <FontAwesomeIcon icon={faUser} className='admin-icon'/>
-            </Link>
-            <Link href="/basket" className="icon-button">
-                <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
-            </Link>
+      <div className='icon-container-better-one'>
+        <Link href="/basket" className="icon-button-better-one">
+          <FontAwesomeIcon icon={faShoppingCart} className="cart-icon-better-one" />
+        </Link>
       </div>
     </div>
   )

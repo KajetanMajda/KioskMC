@@ -1,14 +1,14 @@
 .advertisement-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1; 
-  }
-  
-.section{
-    padding: 10px;
-    --color: rgb(172,148,244);
-    border: 2px solid var(--color);
-    border-radius: 5px;
-    background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.section {
+  padding: 10px;
+  --color: rgb(172, 148, 244);
+  border: 2px solid var(--color);
+  border-radius: 5px;
+  background-color: #fff;
 }

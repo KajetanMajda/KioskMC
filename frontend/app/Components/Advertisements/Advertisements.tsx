@@ -37,12 +37,12 @@ export default function Advertisements() {
         };
     }, [currentAd, advertisements.length]);
 
-  return (
-    <div className="advertisement-container">
-      <div className="section">
-        <h1>{advertisements[currentAd].title}</h1>
-        <p>{advertisements[currentAd].content}</p>
-      </div>
-    </div>
-  );
+    return (
+        <div className="advertisement-container">
+            <div className="section">
+                <h1>{advertisements[currentAd].title}</h1>
+                <p>{advertisements[currentAd].content}</p>
+            </div>
+        </div>
+    );
 }

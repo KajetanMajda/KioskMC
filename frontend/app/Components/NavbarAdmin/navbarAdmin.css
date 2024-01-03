@@ -1,4 +1,4 @@
-.nav-container {
+.nav-container-admin {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,14 +8,13 @@
   background-color: rgb(172, 148, 244);
 }
 
-.logo-container .image {
+.logo-container-admin .image-admin {
   display: block;
   height: 100px;
   padding: 15px;
 }
 
-.image:hover {
-  cursor: pointer;
+.image-admin:hover {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
 }
@@ -38,38 +37,18 @@
   }
 }
 
-.search-bar .search-input {
-  width: 600px;
-  margin-left: 0px;
-  height: 30px;
-  padding: 5px;
-  font-size: large;
-  border: 2px solid black;
-}
-
-::placeholder {
-  color: rgb(172, 148, 244);
-  opacity: 1;
-}
-
-input:focus::placeholder {
-  opacity: 0;
-}
-
-.icon-button-better-one {
+.icon-button-admin {
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
-.cart-icon-better-one,
-.admin-icon-better-one {
-  color: white;
+.admin-icon {
+  color: black;
   height: 50px;
   padding: 20px;
 }
 
-.cart-icon-better-one:hover,
-.admin-icon-better-one:hover {
-  color: black;
+.admin-icon:hover {
+  color: red;
 }

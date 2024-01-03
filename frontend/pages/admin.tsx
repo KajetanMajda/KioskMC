@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Order from "../app/Components/Orders/orders";
 import Edit from "../app/Components/Edit/edit";
+import NavbarAdmin from "../app/Components/NavbarAdmin/navbarAdmin";
+import Footer from "../app/Components/Footer/footer";
 import '../app/Style/admin.css';
 
 export default function Admin() {
@@ -16,25 +18,27 @@ export default function Admin() {
     }, []);
 
     return (
+        <>
+            <style>
+                {`
+              body {
+                margin: 0;
+              }
+            `}
+            </style>
 
-        // <>
-        //     <style>
-        //         {`
-        //       body {
-        //         margin: 0;
-        //         padding: 0;
-        //         font-family: 'Arial', sans-serif;
-        //       }
-        //     `}
-        //    </style>
-            <div className="container">
-                <div>
-                    <Edit />
+            <div>
+                <NavbarAdmin />
+                <div className="container">
+                    <div>
+                        <Edit />
+                    </div>
+                    <div>
+                        <Order />
+                    </div>
                 </div>
-                <div>
-                    <Order />
-                </div>
+                <Footer />
             </div>
-       // </>
+        </>
     );
 }

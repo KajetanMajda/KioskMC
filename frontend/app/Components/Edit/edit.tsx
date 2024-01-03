@@ -1,33 +1,3 @@
-  // const handleInputChange = (productName: string, ingredientIndex: number, field: string, value: string) => {
-  //   setProducts((prevProducts) =>
-  //     prevProducts.map((product) => {
-  //       if (product.name === productName) {
-  //         return {
-  //           ...product,
-  //           ingredients: product.ingredients.map((ingredient, index) => {
-  //             if (index === ingredientIndex) {
-  //               let newValue = value;
-  //               if (field === 'quantity') {
-  //                 const parsedValue = Number(value);
-  //                 if (parsedValue < ingredient.minQuantity) {
-  //                   newValue = String(ingredient.minQuantity);
-  //                 } else if (parsedValue > ingredient.maxQuantity) {
-  //                   newValue = String(ingredient.maxQuantity);
-  //                 }
-  //               }
-  //               return {
-  //                 ...ingredient,
-  //                 [field]: field === 'quantity' ? Number(newValue) : field === 'price' ? Number(newValue) : newValue,
-  //               };
-  //             }
-  //             return ingredient;
-  //           }),
-  //         };
-  //       }
-  //       return product;
-  //     })
-  //   );
-  // };
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -55,7 +25,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<Product[]>('http://localhost:3030/productsAll'); 
+        const response = await axios.get<Product[]>('http://localhost:3030/productsAll');
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -121,16 +91,8 @@ const ProductList = () => {
                 min={10}
                 max={100}
                 onChange={(e) => handleInputChange(product.name, 0, 'price', e.target.value)}
-              />
+              /> €
             </p>
-            {/* <p>
-              Quantity:{' '}
-              <input
-                type="number"
-                value={product.quantity}
-                onChange={(e) => handleInputChange(product.name, 0, 'quantity', e.target.value)}
-              />
-            </p> */}
             <p>Ingredients:</p>
             <ul>
               {product.ingredients.map((ingredient, index) => (

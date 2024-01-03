@@ -5,10 +5,10 @@ import Navbar from '../app/Components/Navbar/Navbar';
 import DiningButton from '../app/Components/DiningButton/DiningButton';
 
 export default function Index() {
-    return (
-        <>
-          <style>
-            {`
+  return (
+    <>
+      <style>
+        {`
               body {
                 font-family: Arial, sans-serif;
                 background-color: rgb(172,148,244);
@@ -21,13 +21,13 @@ export default function Index() {
                 height: 100vh;
               }
             `}
-          </style>
-          <div className="main-container">
-            <Navbar />
-            <Advertisements />
-            <DiningButton />
-          </div>
-        </>
-        
-    );
-    }
+      </style>
+      <div className="main-container">
+        <Navbar />
+        <Advertisements />
+        <DiningButton />
+      </div>
+    </>
+
+  );
+}

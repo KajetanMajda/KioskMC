@@ -4,19 +4,29 @@ import { useEffect, useState } from 'react';
 import ProductDetailsEdit from '../../app/Components/ProductDetailsEdit/productDetailsEdit';
 
 export default function Products() {
-    const [product, setProduct] = useState(null);
-    const router = useRouter();
-    const {name} = router.query;
-  
-    useEffect(() => {
-      fetch(`http://localhost:3030/edit/${name}`)
-        .then(response => response.json())
-        .then(data => setProduct(data));
-    }, []);
-  
-    return (
+  const [product, setProduct] = useState(null);
+  const router = useRouter();
+  const { name } = router.query;
+
+  useEffect(() => {
+    fetch(`http://localhost:3030/edit/${name}`)
+      .then(response => response.json())
+      .then(data => setProduct(data));
+  }, []);
+
+  return (
+
+    <>
+      <style>
+        {`
+              body {
+                margin: 0;
+              }
+            `}
+      </style>
       <div>
-        {product && <ProductDetailsEdit productProp={product} /> }
+        {product && <ProductDetailsEdit productProp={product} />}
       </div>
-    )
-  }
+    </>
+  )
+}

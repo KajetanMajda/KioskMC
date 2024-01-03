@@ -1,0 +1,28 @@
+.footer-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgb(172, 148, 244);
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.footer-icon {
+  color: white;
+  height: 50px;
+  padding: 20px;
+  margin-right: 55px;
+}
+
+.footer-icon:hover {
+  color: black;
+}

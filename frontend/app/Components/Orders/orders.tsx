@@ -51,20 +51,20 @@ const Orders = () => {
       {salesByDate.map((sale, index) => (
         <div key={index}>
           <h3>Date: {sale.date}</h3>
-          <p>Total Sales: {sale.total} Eur</p>
+          <p>Total Sales: {sale.total} €</p>
         </div>
       ))}
       {data.map((order: OrderType) => (
         <div key={order.orderNumber}>
           <h3>Order Number: {order.orderNumber}</h3>
-          <p>Total: {order.total}</p>
+          <p>Total: {order.total} €</p>
           <p>Date: {order.date}</p>
           <ul>
             {order.items.map((item: OrderItemType) => (
               <li key={item.name}>
                 <p>Name: {item.name}</p>
                 <p>Quantity: {item.quantity}</p>
-                <p>Price: {item.price}</p>
+                <p>Price: {item.price} €</p>
               </li>
             ))}
           </ul>
