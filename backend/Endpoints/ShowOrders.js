@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const OrderModel = require('../Schemas/OrderSchema');
-const cors = require('cors');
-
-router.use(cors());
 
 router.get('/orders/info', async (req, res) => {
     try {

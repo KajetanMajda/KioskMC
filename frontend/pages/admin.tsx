@@ -5,14 +5,26 @@ import Order from "../app/Components/Orders/orders";
 import Edit from "../app/Components/Edit/edit";
 import NavbarAdmin from "../app/Components/NavbarAdmin/navbarAdmin";
 import Footer from "../app/Components/Footer/footer";
-import '../app/Style/admin.css';
 
 export default function Admin() {
     const router = useRouter();
 
     useEffect(() => {
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        if (!isLoggedIn) {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/login');
+            return;
+        }
+
+        // Decode JWT payload to check expiry (no library needed for basic check)
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            if (payload.exp * 1000 < Date.now()) {
+                localStorage.removeItem('token');
+                router.push('/login');
+            }
+        } catch {
+            localStorage.removeItem('token');
             router.push('/login');
         }
     }, []);
@@ -20,11 +32,7 @@ export default function Admin() {
     return (
         <>
             <style>
-                {`
-              body {
-                margin: 0;
-              }
-            `}
+                {`body { margin: 0; }`}
             </style>
 
             <div>

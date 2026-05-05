@@ -139,7 +139,7 @@ export default function ProductDetailsEdit({ productProp }: { productProp: Produ
 
             <div className="ingredients-deatails">
                 {product.ingredients.map((ingredient, index) => (
-                    <div key={index} className="ingredient-item-deatails">
+                    <div key={ingredient.name} className="ingredient-item-deatails">
                         <p className="ingredient-info-deatails">Name: {ingredient.name}</p>
                         <p className="ingredient-info-deatails">Quantity: {ingredient.quantity}</p>
                         {ingredient.isEditable && (

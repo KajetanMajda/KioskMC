@@ -109,8 +109,8 @@ export default function Basket() {
 
                 <Modal className="modal-main" isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
                     <div className="modal-content">
-                        {cart.map((product, index) => (
-                            <p className='paragraph-modal' key={index}>
+                        {cart.map((product) => (
+                            <p className='paragraph-modal' key={product.name}>
                                 {`Name: ${product.name}, Quantity: ${product.quantity}, Price: ${product.price} €`}
                             </p>
                         ))}
@@ -124,7 +124,7 @@ export default function Basket() {
                             const total = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
                             const currentDate = new Date().toISOString().slice(0, 10);
 
-                            const response = await fetch('http://localhost:3030/orders', {
+                            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export default function Basket() {
 
                 <div className="basket-data-container">
                     {cart.map((product, productIndex) => (
-                        <div className='ingredien-container-basket' key={productIndex}>
+                        <div className='ingredien-container-basket' key={product.name}>
                             <h2 className='basket-name-h2'>{product.name}</h2>
                             <button className='basket-button' onClick={() => removeFromCart(productIndex)}>Remove</button>
                             {!isEditing ? (
@@ -163,7 +163,7 @@ export default function Basket() {
                             <p className='basket-price-paragraph'>Price: {product.price} €</p>
                             <p className='basket-quantity-paragraph'>Quantity: {product.quantity}</p>
                             {product.ingredients && product.ingredients.map((ingredient, ingredientIndex) => (
-                                <div className='basket-container-ingredients' key={ingredientIndex}>
+                                <div className='basket-container-ingredients' key={ingredient.name}>
                                     <p className='basket-name-paragraph-ingredients'>Name: {ingredient.name}</p>
                                     <p className='basket-quantity-paragraph-ingredients'>Quantity: {ingredient.quantity}</p>
                                     {isEditing && ingredient.isEditable && (

@@ -19,13 +19,15 @@ interface Product {
   ingredients: Ingredient[];
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<Product[]>('http://localhost:3030/productsAll');
+        const response = await axios.get<Product[]>(`${API_URL}/productsAll`);
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -60,16 +62,21 @@ const ProductList = () => {
 
   const handleSendClick = async (productName: string) => {
     const confirmed = window.confirm('Are you sure you want to update it?');
-    if (confirmed) {
-      try {
-        const productToUpdate = products.find((product) => product.name === productName);
-        if (productToUpdate) {
-          const response = await axios.put(`http://localhost:3030/products/update/${productToUpdate.id}`, { newData: productToUpdate });
-          console.log('Data sent successfully:', response.data);
-        }
-      } catch (error) {
-        console.error('Error sending data:', error);
-      }
+    if (!confirmed) return;
+
+    try {
+      const productToUpdate = products.find((product) => product.name === productName);
+      if (!productToUpdate) return;
+
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `${API_URL}/products/update/${productToUpdate.id}`,
+        { newData: productToUpdate },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log('Data sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending data:', error);
     }
   };
 
@@ -78,7 +85,7 @@ const ProductList = () => {
       <h1>Product List</h1>
       <ul>
         {products.map((product) => (
-          <li key={product.name}>
+          <li key={product.id}>
             <h3>
               {product.name}
               <button onClick={() => handleSendClick(product.name)}>Send</button>
@@ -96,7 +103,7 @@ const ProductList = () => {
             <p>Ingredients:</p>
             <ul>
               {product.ingredients.map((ingredient, index) => (
-                <li key={index}>
+                <li key={ingredient.name}>
                   <span>{ingredient.name} {'->'} </span>
                   {ingredient.isEditable ? (
                     <input
