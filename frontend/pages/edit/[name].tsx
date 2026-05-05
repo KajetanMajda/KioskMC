@@ -9,10 +9,11 @@ export default function Products() {
   const { name } = router.query;
 
   useEffect(() => {
-    fetch(`http://localhost:3030/edit/${name}`)
+    if (!name) return;
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/edit/${name}`)
       .then(response => response.json())
       .then(data => setProduct(data));
-  }, []);
+  }, [name]);
 
   return (
 

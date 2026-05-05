@@ -17,7 +17,7 @@ const Orders = () => {
   const [data, setData] = useState<OrderType[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3030/orders/info')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/info`)
       .then(response => response.json())
       .then(data => setData(data))
       .catch(error => console.error(error));
@@ -48,8 +48,8 @@ const Orders = () => {
   return (
     <div>
       <h2>Sales Statistics</h2>
-      {salesByDate.map((sale, index) => (
-        <div key={index}>
+      {salesByDate.map((sale) => (
+        <div key={sale.date}>
           <h3>Date: {sale.date}</h3>
           <p>Total Sales: {sale.total} €</p>
         </div>

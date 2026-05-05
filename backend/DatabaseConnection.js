@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 
 const connectToDatabase = async () => {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/KioskMC', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(process.env.MONGO_URI);
         console.log('Database connection successful');
     } catch (error) {
         console.error('Database connection failed:', error);

@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const KioskProductsModel = require('../Schemas/ProductsSchema');
-const cors = require('cors');
-
-router.use(cors());
+const ProductsModel = require('../Schemas/ProductsSchema');
 
 router.get('/productsAll', async (req, res) => {
     try {
-        const documents = await KioskProductsModel.find({}, '-_id');
+        const documents = await ProductsModel.find({}, '-_id');
         res.json(documents);
     } catch (error) {
         console.error('Error retrieving data from collection:', error);

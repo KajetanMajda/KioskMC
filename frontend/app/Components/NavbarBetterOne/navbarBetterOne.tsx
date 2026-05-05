@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-export default function navbarBetterOne() {
+export default function NavbarBetterOne() {
   const [placeholder, setPlaceholder] = useState('');
   const [isPause, setIsPause] = useState(false);
   const [products, setProducts] = useState<string[]>([]);
@@ -14,7 +14,7 @@ export default function navbarBetterOne() {
   const deleting = useRef(false);
 
   useEffect(() => {
-    fetch('http://localhost:3030/productsName')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/productsName`)
       .then(response => response.json())
       .then(data => setProducts(data.map((item: { name: string }) => item.name)))
       .catch(error => console.error(error));
